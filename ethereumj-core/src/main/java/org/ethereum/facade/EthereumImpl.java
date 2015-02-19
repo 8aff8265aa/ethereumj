@@ -9,6 +9,7 @@ import org.ethereum.net.client.PeerClient;
 import org.ethereum.net.peerdiscovery.PeerInfo;
 import org.ethereum.net.server.ChannelManager;
 import org.ethereum.net.server.PeerServer;
+import org.ethereum.net.server.PeerServerUDP;
 import org.ethereum.net.submit.TransactionExecutor;
 import org.ethereum.net.submit.TransactionTask;
 import org.ethereum.util.ByteUtil;
@@ -55,6 +56,9 @@ public class EthereumImpl implements Ethereum {
     PeerServer peerServer;
 
     @Autowired
+    PeerServerUDP peerServerUDP;
+
+    @Autowired
     ApplicationContext ctx;
 
     public EthereumImpl() {
@@ -69,6 +73,14 @@ public class EthereumImpl implements Ethereum {
                     new Runnable() {
                         public void run() {
                             peerServer.start(CONFIG.listenPort());
+                        }
+                    }
+            );
+
+            Executors.newSingleThreadExecutor().submit(
+                    new Runnable() {
+                        public void run() {
+                            peerServerUDP.start(CONFIG.listenPort());
                         }
                     }
             );

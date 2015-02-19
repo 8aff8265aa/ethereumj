@@ -56,6 +56,7 @@ ext {
 }
 
 dependencies {
+    compile "com.barchart.udt:barchart-udt-bundle:2.3.0"
     compile "io.netty:netty-all:4.0.23.Final"
     compile "com.madgag.spongycastle:core:${scastleVersion}" // for SHA3 and SECP256K1
     compile "org.iq80.leveldb:leveldb:${leveldbVersion}"
